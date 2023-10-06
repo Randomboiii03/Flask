@@ -115,6 +115,7 @@ def get_prompt(question_type, level):
                     Each question should have a unique title, appropriate tags, a concise description, and a clear stem with answer choices.
                     Remember to follow the additional information provided for designing short answer questions, and ensure that the question is well-crafted to effectively assess students' knowledge.
                     '''
+
     elif question_type == "fitb":
         prompt = f'''
                     I want you to act as highly experienced {level} professor with expertise in the subject matter covered in the uploaded document.
