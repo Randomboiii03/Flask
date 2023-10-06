@@ -198,23 +198,23 @@ def generate_mcq():
         claude_api = Client(cookie)
 
     except:
-        return jsonify(set_error_message("Client error, please try again later.")), 403
+        return jsonify(set_error_message("Client error, please try again later.")), 401
 
     try:
         prompt = get_prompt(question_type, level)
         conversation_id = claude_api.create_new_chat()['uuid']
         response = claude_api.send_message(prompt, conversation_id, attachment=f.filename, timeout=600)
 
-    except:
+    except Exception as e:
         delete_conversation(claude_api, conversation_id)
-        return jsonify(set_error_message("Conversation or attachment error, please try again.")), 403
+        return jsonify(set_error_message("Connection error or You've hit generation limit , please try again later.")), 503
 
     try:
         response = parse_json(response)
 
     except:
         delete_conversation(claude_api, conversation_id)
-        return jsonify(set_error_message("Parsing JSON error, please try again.")), 403
+        return jsonify(set_error_message("Parsing JSON error, please try again.")), 400
 
     delete_conversation(claude_api, conversation_id)
 
