@@ -216,6 +216,12 @@ def generate_mcq():
         delete_conversation(claude_api, conversation_id)
         return jsonify(set_error_message("Parsing JSON error, please try again.")), 400
 
+    response["id"] = conversation_id
+    response["reference"] = f.filename
+    response["isError"] = False
+
+    json.dumps(response)
+
     delete_conversation(claude_api, conversation_id)
 
     return jsonify(response), 201
