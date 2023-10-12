@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from werkzeug.utils import secure_filename
 from claude_api import Client
 import json
-import re
+import datetime
 
 app = Flask(__name__)
 
@@ -217,7 +217,9 @@ def generate_mcq():
         return jsonify(set_error_message("Parsing JSON error, please try again.")), 400
 
     response["id"] = conversation_id
+    response["question_type"] = question_type
     response["reference"] = f.filename
+    response["date_created"] = datetime.date.today()
     response["isError"] = False
 
     json.dumps(response)
