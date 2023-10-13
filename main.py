@@ -219,8 +219,11 @@ def generate_mcq():
     response["id"] = conversation_id
     response["question_type"] = question_type
     response["reference"] = f.filename
-    response["date_created"] = datetime.date.today()
+    response["date_created"] = str(datetime.date.today())
     response["isError"] = False
+
+    for index, question in enumerate(response["questions"]):
+        question["item"] = index
 
     json.dumps(response)
 
