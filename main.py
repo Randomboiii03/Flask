@@ -212,22 +212,22 @@ def generate_mcq():
     try:
         response = parse_json(response)
 
+        response["id"] = conversation_id
+        response["question_type"] = question_type
+        response["reference"] = f.filename
+        response["date_created"] = str(datetime.date.today())
+        response["isError"] = False
+
+        for index, question in enumerate(response["questions"]):
+            question["item"] = index
+            question["correct"] = 0
+            question["shown"] = 0
+
+        json.dumps(response)
+
     except:
         delete_conversation(claude_api, conversation_id)
         return jsonify(set_error_message("Parsing JSON error, please try again.")), 400
-
-    response["id"] = conversation_id
-    response["question_type"] = question_type
-    response["reference"] = f.filename
-    response["date_created"] = str(datetime.date.today())
-    response["isError"] = False
-
-    for index, question in enumerate(response["questions"]):
-        question["item"] = index
-        question["correct"] = 0
-        question["shown"] = 0
-
-    json.dumps(response)
 
     delete_conversation(claude_api, conversation_id)
 
