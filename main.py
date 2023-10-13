@@ -224,6 +224,8 @@ def generate_mcq():
 
     for index, question in enumerate(response["questions"]):
         question["item"] = index
+        question["correct"] = 0
+        question["shown"] = 0
 
     json.dumps(response)
 
