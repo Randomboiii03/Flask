@@ -215,7 +215,7 @@ def generate_mcq():
         response["id"] = conversation_id
         response["question_type"] = question_type
         response["reference"] = f.filename
-        response["date_created"] = str(datetime.date.today())
+        response["date_created"] = str(datetime.datetime.today().strftime("%Y-%m-%d %H:%M"))
         response["isError"] = False
 
         for index, question in enumerate(response["questions"]):
