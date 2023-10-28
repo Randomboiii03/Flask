@@ -217,11 +217,7 @@ def generate_mcq():
         response["reference"] = f.filename
         response["date_created"] = str(datetime.datetime.today().strftime("%Y-%m-%d %H:%M"))
         response["isError"] = False
-
-        for index, question in enumerate(response["questions"]):
-            question["item"] = index
-            question["correct"] = 0
-            question["shown"] = 0
+        response["totalItem"] = len(response["questions"])
 
         json.dumps(response)
 
